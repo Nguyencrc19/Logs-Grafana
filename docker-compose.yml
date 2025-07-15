@@ -5,11 +5,14 @@ services:
     command: /fluent-bit/bin/fluent-bit --config=/fluent-bit/etc/conf/fluent-bit.conf
     volumes:
       - ./fluent-bit.conf:/fluent-bit/etc/conf/fluent-bit.conf
-      - ./logmap.json:/fluent-bit/etc/conf/logmap.json
+      - ./labelmap.json:/fluent-bit/labelmap.json
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/log:/var/log:ro
+      - ./parsers.conf:/fluent-bit/etc/conf/parsers.conf
     depends_on:
       - loki
     networks:
-      - loki
+      - observability
   loki:
     image: grafana/loki:main
     ports:
@@ -18,7 +21,7 @@ services:
       - ./loki-config.yaml:/etc/loki/local-config.yaml
     command: -config.file=/etc/loki/local-config.yaml
     networks:
-      - loki
+      - observability
   grafana:
     image: grafana/grafana:latest
     environment:
@@ -32,12 +35,11 @@ services:
     volumes:
       - ./grafana:/etc/grafana/provisioning
     networks:
-      - loki
+      - observability
     
 networks:
-    loki:
-
-    
-
+  observability:
+    external: true
+    name: observability
 
     
