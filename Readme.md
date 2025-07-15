@@ -20,25 +20,6 @@ A centralized log collection, storage, and visualization stack using **Fluent Bi
 
 ---
 
-## 📁 Directory Structure
-
-```
-Logs-Grafana/
-├── docker-compose.yml
-├── fluent-bit/
-│   ├── conf/
-│   │   ├── fluent-bit.conf
-│   │   └── parsers.conf
-├── loki/
-│   └── config.yaml
-├── grafana/
-│   └── provisioning/
-│       ├── dashboards/
-│       └── datasources/
-```
-
----
-
 ## 🚀 Getting Started
 
 ### 1. Requirements
@@ -152,9 +133,3 @@ docker-compose down -v
 
 - If you see Loki errors like `compactor`, check `storage_config` in `loki/config.yaml`.
 - Mount a volume (e.g. `/loki`) to persist log data.
-
----
-
-## 📬 Contact
-
-Maintainer: [Nguyencrc19](https://github.com/Nguyencrc19)
